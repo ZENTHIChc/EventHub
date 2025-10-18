@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-export default function Header() {
+export default function Navbar() {
   return (
     <nav className="mx-auto bg-white shadow-lg">
       <div className="container mx-auto flex items-center justify-between px-6 py-4">
