@@ -3,9 +3,9 @@ import Navbar from "./componen/Navbar";
 import Hero from "./componen/Hero";
 import Stats1 from "./componen/Stats1";
 import Pcard from "./componen/Pcard";
+import IconCard from "./componen/IconCard";
 
-
-
+import { Zap, Heart, Star, Cpu, Trophy, Headphones } from 'lucide-react';
 
 export default function Home() {
   return (
@@ -76,6 +76,20 @@ export default function Home() {
 
           </div>
         </div>
+      </section>
+
+      {/*icon card*/}
+      <section>
+
+        <IconCard
+          icon={Headphones}
+          size="small"
+          bgType="gradient"
+          gradientFrom="from-purple-500"
+          gradientTo="to-indigo-600"
+          hoverEffect="both"
+        />
+
       </section>
 
 
