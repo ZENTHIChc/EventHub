@@ -4,8 +4,9 @@ import Hero from "./componen/Hero";
 import Stats1 from "./componen/Stats1";
 import Pcard from "./componen/Pcard";
 import IconCard from "./componen/IconCard";
+import EventCategoryCard from "./componen/EventCategoryCard";
 
-import { Zap, Heart, Star, Cpu, Trophy, Headphones } from 'lucide-react';
+import { Zap, Heart, Star, Archive, Cpu, Palette, Ticket, Trophy, Headphones, Video, Music, Camera, Mic, Briefcase } from 'lucide-react';
 
 export default function Home() {
   return (
@@ -32,6 +33,8 @@ export default function Home() {
           <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-12">
 
             {/* Event 1 */}
+
+            
             <Pcard
               image="/Produc.png"
               title="Stand Up Comedy"
@@ -74,6 +77,8 @@ export default function Home() {
               price="Rp 150.000"
             />
 
+            
+
           </div>
         </div>
       </section>
@@ -90,6 +95,84 @@ export default function Home() {
           hoverEffect="both"
         />
 
+      </section>
+
+      
+      {/* Event Category Cards */}
+
+      <section>
+        <div className="p-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-7 gap-6">
+        
+        <EventCategoryCard
+          icon={Music}
+          title="Music"
+          count="50+ Event"
+          bgType="gradient"
+          gradientFrom="from-pink-500"
+          gradientTo="to-rose-500"
+     
+        />
+
+        <EventCategoryCard
+          icon={Mic}
+          title="Komedi"
+          count="120+ Event"
+          bgType="gradient"
+          gradientFrom="from-purple-500"
+          gradientTo="to-indigo-500"
+        />
+
+        <EventCategoryCard
+          icon={Briefcase}
+          title="Bisnis"
+          count="80+ Event"
+          bgType="gradient"
+          gradientFrom="from-green-400"
+          gradientTo="to-green-600"
+        />
+
+        <EventCategoryCard
+          icon={Ticket}
+          title="Cinema"
+          count="200+ Event"
+          bgType="gradient"
+          gradientFrom="from-yellow-400"
+          gradientTo="to-orange-600"
+        />
+
+        <EventCategoryCard
+          icon={Palette}
+          title="Seni"
+          count="50+ Event"
+          bgType="gradient"
+          gradientFrom="from-pink-500"
+          gradientTo="to-rose-500"
+     
+        />
+
+        <EventCategoryCard
+          icon={Trophy}
+          title="Sports"
+          count="120+ Event"
+          bgType="gradient"
+          gradientFrom="from-yellow-300"
+          gradientTo="to-orange-500"
+        />
+
+        <EventCategoryCard
+          icon={Archive}
+          title="Lainnya"
+          count="80+ Event"
+          bgType="gradient"
+          gradientFrom="from-blue-500"
+          gradientTo="to-cyan-500"
+        />
+        
+        
+
+      </div>
+    </div>
       </section>
 
 
