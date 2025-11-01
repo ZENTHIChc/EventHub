@@ -6,7 +6,7 @@ export default function Footer() {
     <footer className="bg-[#0D1117] text-gray-300 py-12 px-6">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
-          {/* Left Section - Logo & Description */}
+          {/*Logo & Descrption */}
           <div className="space-y-4">
             <div className="flex items-center space-x-2">
               <div className="text-orange-500">

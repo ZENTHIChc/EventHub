@@ -1,4 +1,7 @@
 import Image from "next/image";
+import Link from "next/link"; 
+import RegisterPage from "./RegisterPage";
+import LoginPage from "./LoginPage";
 
 export default function Navbar() {
   return (
@@ -21,12 +24,16 @@ export default function Navbar() {
         </div>
 
         <div className="flex items-center gap-4">
-          <button className="px-6 py-2 text-[#2A2A2A] font-medium hover:text-yellow-400 transition-colors">
-            Sign In
-          </button>
-          <button className="px-6 py-2 bg-yellow-400 text-[#2A2A2A] font-medium rounded-md hover:bg-yellow-500 transition-colors">
-            Sign up
-          </button>
+          <Link href="LoginPage">
+            <button className="px-6 py-2 text-[#2A2A2A] font-medium hover:text-yellow-400 transition-colors">
+              Sign In
+            </button>
+          </Link>
+          <Link href="./RegisterPage">
+            <button className="px-6 py-2 bg-yellow-400 text-[#2A2A2A] font-medium rounded-md hover:bg-yellow-500 transition-colors">
+              Sign up
+            </button>
+          </Link>
         </div>
       </div>
     </nav>

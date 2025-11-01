@@ -7,7 +7,8 @@ import IconCard from "./componen/IconCard";
 import EventCategoryCard from "./componen/EventCategoryCard";
 import FeatureCard from "./componen/FeatureCard";
 import Footer from "./componen/Footer";
-
+import RegisterPage from "./componen/RegisterPage";
+import LoginPage from "./componen/LoginPage";
 
 import { Zap, Heart, Star, Archive, Cpu, Palette, Ticket, Trophy, Headphones, Video, Music, Camera, Mic, Briefcase, QrCode, FileText, DollarSign, Users, Megaphone, } from 'lucide-react';
 
@@ -261,6 +262,11 @@ export default function Home() {
             </div>
           </div>
         </div>
+      </section>
+
+      <section>
+      <RegisterPage/>
+      <LoginPage/>
       </section>
 <section>
 
