@@ -9,8 +9,15 @@ import FeatureCard from "./componen/FeatureCard";
 import Footer from "./componen/Footer";
 import RegisterPage from "./componen/RegisterPage";
 import LoginPage from "./componen/LoginPage";
+import Hero2 from "./componen/hero2";
+import CTA from "./componen/CTA";
+import JelajahiEvent from "./componen/JelajahiEvent";
+import PaymentPages from "./componen/PaymentPage";
 
-import { Zap, Heart, Star, Archive, Cpu, Palette, Ticket, Trophy, Headphones, Video, Music, Camera, Mic, Briefcase, QrCode, FileText, DollarSign, Users, Megaphone, } from 'lucide-react';
+import PartnershipForm from "./componen/PartnershipForm";
+import EventDetailPage from "./componen/EventDetailPage";
+
+import { Zap, Award, Heart, Star, Archive, Cpu, Palette, Ticket, Trophy, Headphones, Video, Music, Camera, Mic, Briefcase, QrCode, FileText, DollarSign, Users, Megaphone, } from 'lucide-react';
 
 export default function Home() {
   return (
@@ -266,12 +273,62 @@ export default function Home() {
 
       <section>
       <RegisterPage/>
+      </section>
+      <section>
       <LoginPage/>
       </section>
+      <section>
+      <Hero2/>
+      </section>
+      <section>
+      <CTA/>
+      </section>
 <section>
-
+<Hero2
+  badgeIcon="🎉"
+  badgeText="Event Terbaik 2024"
+  
+  titleLine1="Buat Event"
+  titleLine2="Impianmu"
+  titleLine3="Sekarang Juga"
+  
+  description="Platform event management terlengkap di Indonesia"
+  
+  stats={[
+    {
+      icon: Star,
+      iconBgColor: 'bg-blue-500',
+      value: '5000+',
+      label: 'Event Berhasil'
+    },
+    {
+      icon: Award,
+      iconBgColor: 'bg-purple-500',
+      value: '4.9',
+      label: 'Rating'
+    }
+  ]}
+  
+  primaryButtonText="Mulai Gratis"
+  secondaryButtonText="Lihat Demo"
+  
+  imageUrl="main.jpg"
+  imagePosition="right"
+/>
 </section>
 
+<section>
+<PartnershipForm/>
+</section>
+<section>
+<EventDetailPage/>
+</section>
+<section>
+<JelajahiEvent/>
+</section>
+<section>
+<PaymentPages/>
+</section>
 
     </div>
 
