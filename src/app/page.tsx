@@ -9,15 +9,16 @@ import FeatureCard from "./componen/FeatureCard";
 import Footer from "./componen/Footer";
 import RegisterPage from "./componen/RegisterPage";
 import LoginPage from "./componen/LoginPage";
-import Hero2 from "./componen/hero2";
+import AffiliateHeroSection from "./componen/AffiliateHeroSection";
 import CTA from "./componen/CTA";
 import JelajahiEvent from "./componen/JelajahiEvent";
 import PaymentPages from "./componen/PaymentPage";
-
 import PartnershipForm from "./componen/PartnershipForm";
 import EventDetailPage from "./componen/EventDetailPage";
 
 import { Zap, Award, Heart, Star, Archive, Cpu, Palette, Ticket, Trophy, Headphones, Video, Music, Camera, Mic, Briefcase, QrCode, FileText, DollarSign, Users, Megaphone, } from 'lucide-react';
+import InfiniteCarousel from "./componen/InfiniteCarousel";
+import PaymentSuccess from "./componen/PaymentSuccess";
 
 export default function Home() {
   return (
@@ -37,7 +38,7 @@ export default function Home() {
       {/*cards*/}
 
 
-      <section className="bg-[#F6F6F6] min-h-screen">
+      <section className="bg-[#F6F6F6] pb-16">
         <div className="text-center mb-12 mx-auto pt-16 px-8">
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
             Event <span className="text-yellow-500">Terpopuler</span>
@@ -119,7 +120,7 @@ export default function Home() {
       {/* Event Category Cards */}
 
       <section>
-         <div className="text-center mb-12 mx-auto pt-16 px-8">
+        <div className="text-center mb-12 mx-auto pt-16 px-8">
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
             Jelajahi <span className="text-yellow-500">Kategori</span>
           </h2>
@@ -127,13 +128,14 @@ export default function Home() {
             Temukan event sesuai minat dan passion kamu dari berbagai kategori menarik
           </p>
         </div>
-        
+
         <div className="p-8 mb-12 mx-auto px-8">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-7 gap-6">
 
             <EventCategoryCard
               icon={Music}
               title="Music"
+              href="/Jelajah"
               count="50+ Event"
               bgType="gradient"
               gradientFrom="from-pink-500"
@@ -144,6 +146,7 @@ export default function Home() {
             <EventCategoryCard
               icon={Mic}
               title="Komedi"
+              href="/Jelajah"
               count="120+ Event"
               bgType="gradient"
               gradientFrom="from-purple-500"
@@ -153,6 +156,7 @@ export default function Home() {
             <EventCategoryCard
               icon={Briefcase}
               title="Bisnis"
+              href="/Jelajah"
               count="80+ Event"
               bgType="gradient"
               gradientFrom="from-green-400"
@@ -162,6 +166,7 @@ export default function Home() {
             <EventCategoryCard
               icon={Ticket}
               title="Cinema"
+              href="/Jelajah"
               count="200+ Event"
               bgType="gradient"
               gradientFrom="from-yellow-400"
@@ -171,6 +176,7 @@ export default function Home() {
             <EventCategoryCard
               icon={Palette}
               title="Seni"
+              href="/Jelajah"
               count="50+ Event"
               bgType="gradient"
               gradientFrom="from-pink-500"
@@ -181,6 +187,7 @@ export default function Home() {
             <EventCategoryCard
               icon={Trophy}
               title="Sports"
+              href="/Jelajah"
               count="120+ Event"
               bgType="gradient"
               gradientFrom="from-yellow-300"
@@ -190,6 +197,7 @@ export default function Home() {
             <EventCategoryCard
               icon={Archive}
               title="Lainnya"
+              href="/Jelajah"
               count="80+ Event"
               bgType="gradient"
               gradientFrom="from-blue-500"
@@ -201,20 +209,23 @@ export default function Home() {
           </div>
         </div>
       </section>
+            <section >
+        <InfiniteCarousel />
+      </section>
 
       <section>
-        
-        <div className="py-16 px-8 bg-gray-50">
-          <div className="max-w-7xl mx-auto">
-<div className="text-center mb-12 mx-auto px-8">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            Fitur <span className="text-yellow-500">Unggulan</span> Platform
-          </h2>
-          <p className="text-gray-600 text-base md:text-lg max-w-2xl mx-auto">
-            Rasakan cara baru beli tiket event  gampang, cepat, dan pastinya dengan fitur kece plus service terbaik!
-          </p>
 
-        </div>
+        <div className="py-16 px-8 bg-white">
+          <div className="max-w-7xl mx-auto">
+            <div className="text-center mb-12 mx-auto px-8">
+              <h2 className="text-4xl md:text-5xl font-bold mb-4">
+                Fitur <span className="text-yellow-500">Unggulan</span> Platform
+              </h2>
+              <p className="text-gray-600 text-base md:text-lg max-w-2xl mx-auto">
+                Rasakan cara baru beli tiket event  gampang, cepat, dan pastinya dengan fitur kece plus service terbaik!
+              </p>
+
+            </div>
             {/* Grid 3 kolom */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
 
@@ -271,66 +282,10 @@ export default function Home() {
         </div>
       </section>
 
-      <section>
-      <RegisterPage/>
-      </section>
-      <section>
-      <LoginPage/>
-      </section>
-      <section>
-      <Hero2/>
-      </section>
-      <section>
-      <CTA/>
-      </section>
-<section>
-<Hero2
-  badgeIcon="🎉"
-  badgeText="Event Terbaik 2024"
-  
-  titleLine1="Buat Event"
-  titleLine2="Impianmu"
-  titleLine3="Sekarang Juga"
-  
-  description="Platform event management terlengkap di Indonesia"
-  
-  stats={[
-    {
-      icon: Star,
-      iconBgColor: 'bg-blue-500',
-      value: '5000+',
-      label: 'Event Berhasil'
-    },
-    {
-      icon: Award,
-      iconBgColor: 'bg-purple-500',
-      value: '4.9',
-      label: 'Rating'
-    }
-  ]}
-  
-  primaryButtonText="Mulai Gratis"
-  secondaryButtonText="Lihat Demo"
-  
-  imageUrl="main.jpg"
-  imagePosition="right"
-/>
-</section>
-
-<section>
-<PartnershipForm/>
-</section>
-<section>
-<EventDetailPage/>
-</section>
-<section>
-<JelajahiEvent/>
-</section>
-<section>
-<PaymentPages/>
-</section>
+      
 
     </div>
+    
 
   );
 

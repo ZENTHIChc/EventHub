@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 import { TrendingUp, Users } from 'lucide-react';
 
 interface StatItem {
@@ -71,7 +72,7 @@ const AffiliateHeroSection: React.FC<AffiliateHeroProps> = ({
   imagePosition = 'right'
 }) => {
   return (
-    <div className="min-h-screen bg-white">
+    <div className=" bg-white">
       <div className="max-w-7xl mx-auto px-6 py-12">
         {/* Badge */}
         <div className="inline-flex items-center gap-2 px-6 py-3 border-2 border-yellow-400 rounded-full mb-12">
@@ -143,5 +144,5 @@ const AffiliateHeroSection: React.FC<AffiliateHeroProps> = ({
   );
 };
 
-const Hero2 = AffiliateHeroSection;
-export default Hero2; 
+export default AffiliateHeroSection;
+

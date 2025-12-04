@@ -1,12 +1,13 @@
 "use client";
 
 import React, { useState } from 'react';
+import Link from 'next/link';
 import { Search } from 'lucide-react';
 
 // Komponen Pcard sesuai dengan yang Anda miliki
 const Pcard = ({ image, title, organizer, date, location, ticketsLeft, price }) => {
   return (
-    <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300">
+    <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 h-full">
       <div className="relative h-48 bg-gray-300">
         <img 
           src={image} 
@@ -185,7 +186,7 @@ export default function JelajahiEvent() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header Section */}
-      <div className="bg-white border-b">
+      <div >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <h1 className="text-4xl font-bold mb-2">
             Jelajahi <span className="text-yellow-500">Event</span>
@@ -219,16 +220,23 @@ export default function JelajahiEvent() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {visibleEvents.map((event) => (
-            <Pcard
+            // wrap each card with Link to Eventdetail page and pass id as query
+            <Link
               key={event.id}
-              image={event.image}
-              title={event.title}
-              organizer={event.organizer}
-              date={event.date}
-              location={event.location}
-              ticketsLeft={event.ticketsLeft}
-              price={event.price}
-            />
+              href={`/Eventdetail?id=${event.id}`}
+              className="block h-full"
+              aria-label={`Buka detail event ${event.title}`}
+            >
+              <Pcard
+                image={event.image}
+                title={event.title}
+                organizer={event.organizer}
+                date={event.date}
+                location={event.location}
+                ticketsLeft={event.ticketsLeft}
+                price={event.price}
+              />
+            </Link>
           ))}
         </div>
       </div>

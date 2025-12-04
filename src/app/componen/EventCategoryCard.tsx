@@ -1,9 +1,11 @@
 import React from 'react';
+import Link from 'next/link';
 
 interface EventCategoryCardProps {
   icon: React.ComponentType<{ className?: string }>;
   title: string;
   count: string;
+  href?: string;
   bgType?: 'gradient' | 'solid';
   bgColor?: string;
   gradientFrom?: string;
@@ -16,6 +18,7 @@ const EventCategoryCard: React.FC<EventCategoryCardProps> = ({
   icon: Icon,
   title,
   count,
+  href,
   bgType = 'gradient',
   bgColor = 'bg-blue-500',
   gradientFrom = 'from-blue-500',
@@ -39,9 +42,8 @@ const EventCategoryCard: React.FC<EventCategoryCardProps> = ({
     ? `bg-gradient-to-br ${gradientFrom} ${gradientTo}`
     : bgColor;
 
-  return (
+  const CardContent = (
     <div
-      onClick={onClick}
       className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer hover:scale-105 flex flex-col items-center group"
     >
       {/* Icon Card */}
@@ -68,6 +70,22 @@ const EventCategoryCard: React.FC<EventCategoryCardProps> = ({
       <p className="text-sm text-gray-500 dark:text-gray-400 mt-1 text-center">
         {count}
       </p>
+    </div>
+  );
+
+  // Jika ada href, wrap dengan Link
+  if (href) {
+    return (
+      <Link href={href}>
+        {CardContent}
+      </Link>
+    );
+  }
+
+  // Jika tidak ada href, return dengan onClick
+  return (
+    <div onClick={onClick}>
+      {CardContent}
     </div>
   );
 };
