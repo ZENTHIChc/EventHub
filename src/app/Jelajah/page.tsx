@@ -1,10 +1,62 @@
 'use client';
 
 import React, { useState } from 'react';
-import { ChevronLeft, Calendar, MapPin, Users, Shield, Ticket, Award, Search, User, Mail, Phone, ChevronDown, Check } from 'lucide-react';
+import { ChevronLeft, Calendar, MapPin, Search, Shield, Ticket, Check } from 'lucide-react';
+
+// ==================== TYPE DEFINITIONS ====================
+interface Event {
+  id: number;
+  image: string;
+  title: string;
+  organizer: string;
+  date: string;
+  location: string;
+  ticketsLeft: string;
+  price: string;
+}
+
+interface Package {
+  id: number;
+  name: string;
+  price: number;
+  quantity: number;
+}
+
+interface OrderData {
+  event: {
+    title: string;
+    companyName: string;
+    date: string;
+    location: string;
+    image: string;
+  };
+  packages: Package[];
+  subtotal: number;
+}
+
+interface JelajahiEventProps {
+  onEventSelect: (event: Event) => void;
+}
+
+interface EventDetailPageProps {
+  event: Event | null;
+  onBack: () => void;
+  onCheckout: (data: OrderData) => void;
+}
+
+interface PaymentPageProps {
+  orderData: OrderData;
+  onBack: () => void;
+  onPaymentSuccess: () => void;
+}
+
+interface PaymentSuccessProps {
+  orderData: OrderData;
+  onBackToHome: () => void;
+}
 
 // ==================== JELAJAHI EVENT PAGE ====================
-const JelajahiEvent = ({ onEventSelect }) => {
+const JelajahiEvent: React.FC<JelajahiEventProps> = ({ onEventSelect }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [visibleCount, setVisibleCount] = useState(8);
   
@@ -51,10 +103,12 @@ const JelajahiEvent = ({ onEventSelect }) => {
     }
   ];
 
-  const visibleEvents = allEvents.slice(0, visibleCount);
-  const hasMore = visibleCount < allEvents.length;
+  const visibleEvents = allEvents
+    .filter(event => event.title.toLowerCase().includes(searchQuery.toLowerCase()))
+    .slice(0, visibleCount);
+  const hasMore = visibleCount < allEvents.filter(event => event.title.toLowerCase().includes(searchQuery.toLowerCase())).length;
 
-  const Pcard = ({ event }) => (
+  const Pcard: React.FC<{ event: Event }> = ({ event }) => (
     <div 
       onClick={() => onEventSelect(event)}
       className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 h-full cursor-pointer transform hover:scale-105"
@@ -147,9 +201,11 @@ const JelajahiEvent = ({ onEventSelect }) => {
 };
 
 // ==================== EVENT DETAIL PAGE ====================
-const EventDetailPage = ({ event, onBack, onCheckout }) => {
-  const [selectedImage, setSelectedImage] = useState(event.image);
-  const [ticketCounts, setTicketCounts] = useState({});
+const EventDetailPage: React.FC<EventDetailPageProps> = ({ event, onBack, onCheckout }) => {
+  if (!event) return null;
+
+  const [selectedImage, setSelectedImage] = useState<string>(event?.image || '');
+  const [ticketCounts, setTicketCounts] = useState<Record<number, number>>({});
 
   const packages = [
     {
@@ -178,38 +234,38 @@ const EventDetailPage = ({ event, onBack, onCheckout }) => {
     }
   ];
 
-  const galleryImages = [event.image, event.image, event.image, event.image];
+  const galleryImages = [event?.image, event?.image, event?.image, event?.image].filter(Boolean);
 
-  const handleIncrement = (packageId) => {
+  const handleIncrement = (packageId: number): void => {
     setTicketCounts(prev => ({
       ...prev,
       [packageId]: (prev[packageId] || 0) + 1
     }));
   };
 
-  const handleDecrement = (packageId) => {
+  const handleDecrement = (packageId: number): void => {
     setTicketCounts(prev => ({
       ...prev,
       [packageId]: Math.max(0, (prev[packageId] || 0) - 1)
     }));
   };
 
-  const getTotalTickets = () => {
+  const getTotalTickets = (): number => {
     return Object.values(ticketCounts).reduce((sum, count) => sum + count, 0);
   };
 
-  const getTotalPrice = () => {
+  const getTotalPrice = (): number => {
     return packages.reduce((sum, pkg) => {
       const count = ticketCounts[pkg.id] || 0;
       return sum + (pkg.price * count);
     }, 0);
   };
 
-  const formatPrice = (price) => {
+  const formatPrice = (price: number): string => {
     return `Rp ${price.toLocaleString('id-ID')}`;
   };
 
-  const handleBuyNow = () => {
+  const handleBuyNow = (): void => {
     const selectedPackages = packages
       .filter(pkg => ticketCounts[pkg.id] > 0)
       .map(pkg => ({
@@ -224,13 +280,13 @@ const EventDetailPage = ({ event, onBack, onCheckout }) => {
       return;
     }
 
-    onCheckout({
+    onCheckout?.({
       event: {
-        title: event.title,
-        companyName: event.organizer,
-        date: event.date,
-        location: event.location,
-        image: event.image
+        title: event?.title || '',
+        companyName: event?.organizer || '',
+        date: event?.date || '',
+        location: event?.location || '',
+        image: event?.image || ''
       },
       packages: selectedPackages,
       subtotal: getTotalPrice()
@@ -253,8 +309,8 @@ const EventDetailPage = ({ event, onBack, onCheckout }) => {
             <div className="bg-white rounded-2xl shadow-md overflow-hidden">
               <div className="aspect-video bg-gray-200 overflow-hidden">
                 <img
-                  src={selectedImage}
-                  alt={event.title}
+                  src={selectedImage || event?.image}
+                  alt={event?.title || 'Event'}
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -276,14 +332,14 @@ const EventDetailPage = ({ event, onBack, onCheckout }) => {
             </div>
 
             <div className="bg-white rounded-2xl shadow-md p-6">
-              <h1 className="text-3xl font-bold text-gray-900 mb-2">{event.title}</h1>
-              <p className="text-gray-600 mb-6">{event.organizer}</p>
+              <h1 className="text-3xl font-bold text-gray-900 mb-2">{event?.title || 'Event'}</h1>
+              <p className="text-gray-600 mb-6">{event?.organizer || 'Organizer'}</p>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="flex items-start space-x-3 bg-yellow-50 p-4 rounded-xl">
                   <Calendar className="w-5 h-5 text-yellow-500 mt-1" />
                   <div>
-                    <p className="font-semibold text-gray-900">{event.date}</p>
+                    <p className="font-semibold text-gray-900">{event?.date || '-'}</p>
                     <p className="text-sm text-gray-600">19:00 WIB</p>
                   </div>
                 </div>
@@ -291,7 +347,7 @@ const EventDetailPage = ({ event, onBack, onCheckout }) => {
                 <div className="flex items-start space-x-3 bg-yellow-50 p-4 rounded-xl">
                   <MapPin className="w-5 h-5 text-yellow-500 mt-1" />
                   <div>
-                    <p className="font-semibold text-gray-900">{event.location}</p>
+                    <p className="font-semibold text-gray-900">{event?.location || '-'}</p>
                   </div>
                 </div>
               </div>
@@ -383,17 +439,17 @@ const EventDetailPage = ({ event, onBack, onCheckout }) => {
 };
 
 // ==================== PAYMENT PAGE ====================
-const PaymentPage = ({ orderData, onBack, onPaymentSuccess }) => {
-  const [selectedPayment, setSelectedPayment] = useState('');
+const PaymentPage: React.FC<PaymentPageProps> = ({ orderData, onBack, onPaymentSuccess }) => {
+  const [selectedPayment, setSelectedPayment] = useState<string>('');
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
     phone: ''
   });
 
-  const formatPrice = (price) => `Rp ${price.toLocaleString('id-ID')}`;
-  const calculateAdminFee = () => 5000;
-  const calculateTotal = () => orderData.subtotal + calculateAdminFee();
+  const formatPrice = (price: number): string => `Rp ${price.toLocaleString('id-ID')}`;
+  const calculateAdminFee = (): number => 5000;
+  const calculateTotal = (): number => orderData.subtotal + calculateAdminFee();
 
   const paymentMethods = [
     { id: 'qris', name: 'QRIS' },
@@ -402,7 +458,7 @@ const PaymentPage = ({ orderData, onBack, onPaymentSuccess }) => {
   ];
 
   const handleSubmit = () => {
-    if (!formData.fullName || !formData.email || !formData.phone) {
+    if (!formData.fullName?.trim() || !formData.email?.trim() || !formData.phone?.trim()) {
       alert('Mohon lengkapi semua data diri');
       return;
     }
@@ -410,7 +466,7 @@ const PaymentPage = ({ orderData, onBack, onPaymentSuccess }) => {
       alert('Mohon pilih metode pembayaran');
       return;
     }
-    onPaymentSuccess();
+    onPaymentSuccess?.();
   };
 
   return (
@@ -552,7 +608,7 @@ const PaymentPage = ({ orderData, onBack, onPaymentSuccess }) => {
 };
 
 // ==================== PAYMENT SUCCESS PAGE ====================
-const PaymentSuccess = ({ orderData, onBackToHome }) => {
+const PaymentSuccess: React.FC<PaymentSuccessProps> = ({ orderData, onBackToHome }) => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
       <div className="bg-white rounded-2xl shadow-xl max-w-md w-full p-8">
@@ -603,7 +659,7 @@ const PaymentSuccess = ({ orderData, onBackToHome }) => {
             Lihat E-Ticket
           </button>
           <button 
-            onClick={onBackToHome}
+            onClick={() => onBackToHome?.()}
             className="w-full bg-gray-100 hover:bg-gray-200 text-gray-800 font-semibold py-3 rounded-lg transition"
           >
             Kembali ke Beranda
@@ -616,25 +672,25 @@ const PaymentSuccess = ({ orderData, onBackToHome }) => {
 
 // ==================== MAIN APP ====================
 const App = () => {
-  const [currentPage, setCurrentPage] = useState('jelajahi');
-  const [selectedEvent, setSelectedEvent] = useState(null);
-  const [orderData, setOrderData] = useState(null);
+  const [currentPage, setCurrentPage] = useState<'jelajahi' | 'detail' | 'payment' | 'success'>('jelajahi');
+  const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
+  const [orderData, setOrderData] = useState<OrderData | null>(null);
 
-  const handleEventSelect = (event) => {
+  const handleEventSelect = (event: Event): void => {
     setSelectedEvent(event);
     setCurrentPage('detail');
   };
 
-  const handleCheckout = (data) => {
+  const handleCheckout = (data: OrderData): void => {
     setOrderData(data);
     setCurrentPage('payment');
   };
 
-  const handlePaymentSuccess = () => {
+  const handlePaymentSuccess = (): void => {
     setCurrentPage('success');
   };
 
-  const handleBackToHome = () => {
+  const handleBackToHome = (): void => {
     setCurrentPage('jelajahi');
     setSelectedEvent(null);
     setOrderData(null);

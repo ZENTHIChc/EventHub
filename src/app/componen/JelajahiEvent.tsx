@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { Search } from 'lucide-react';
 
 // Komponen Pcard sesuai dengan yang Anda miliki
-const Pcard = ({ image, title, organizer, date, location, ticketsLeft, price }) => {
+const Pcard = ({ image, title, organizer, date, location, ticketsLeft, price }: { image: string; title: string; organizer: string; date: string; location: string; ticketsLeft: string; price: string }) => {
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 h-full">
       <div className="relative h-48 bg-gray-300">
