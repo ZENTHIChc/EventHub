@@ -85,13 +85,13 @@ export default function Footer() {
               <li>
                 <a href="https://wa.me/6281238169667" className="flex items-center space-x-3 text-gray-400 hover:text-orange-500 transition-colors group">
                   <Phone size={18} className="text-orange-500 flex-shrink-0" />
-                  <span className="text-sm">+62 8123 8169 667 (WA Only)</span>
+                  <span className="text-sm">+62 8123 4567 1234 (WA Only)</span>
                 </a>
               </li>
               <li>
                 <a href="mailto:sales@tokoevent.com" className="flex items-center space-x-3 text-gray-400 hover:text-orange-500 transition-colors group">
                   <Mail size={18} className="text-orange-500 flex-shrink-0" />
-                  <span className="text-sm">sales@tokoevent.com</span>
+                  <span className="text-sm">example@gmail.com</span>
                 </a>
               </li>
             </ul>
