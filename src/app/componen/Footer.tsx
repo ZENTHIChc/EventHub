@@ -44,12 +44,12 @@ export default function Footer() {
                 </a>
               </li>
               <li>
-                <a href="#" className="text-gray-400 hover:text-orange-500 transition-colors text-sm">
+                <a href="/Partnership" className="text-gray-400 hover:text-orange-500 transition-colors text-sm">
                   Partnership
                 </a>
               </li>
               <li>
-                <a href="#" className="text-gray-400 hover:text-orange-500 transition-colors text-sm">
+                <a href="/Affiliate" className="text-gray-400 hover:text-orange-500 transition-colors text-sm">
                   Affiliate
                 </a>
               </li>
@@ -61,17 +61,17 @@ export default function Footer() {
             <h3 className="text-white font-semibold text-lg mb-4">Bantuan</h3>
             <ul className="space-y-3">
               <li>
-                <a href="#" className="text-gray-400 hover:text-orange-500 transition-colors text-sm">
+                <a href="https://www.instagram.com/mahes.r00" className="text-gray-400 hover:text-orange-500 transition-colors text-sm">
                   Pusat Bantuan
                 </a>
               </li>
               <li>
-                <a href="#" className="text-gray-400 hover:text-orange-500 transition-colors text-sm">
+                <a href="https://www.instagram.com/mahes.r00" className="text-gray-400 hover:text-orange-500 transition-colors text-sm">
                   Cara Pembelian
                 </a>
               </li>
               <li>
-                <a href="#" className="text-gray-400 hover:text-orange-500 transition-colors text-sm">
+                <a href="https://www.instagram.com/mahes.r00" className="text-gray-400 hover:text-orange-500 transition-colors text-sm">
                   Kebijakan & Privasi
                 </a>
               </li>
