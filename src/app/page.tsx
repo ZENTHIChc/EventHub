@@ -1,8 +1,10 @@
+"use client"
+
 import Image from "next/image";
 import Navbar from "./componen/Navbar";
 import Hero from "./componen/Hero";
 import Stats1 from "./componen/Stats1";
-import Pcard from "./componen/Pcard";
+import { Pcard, EventDetailPage, PaymentPage, PaymentSuccess } from "./componen/Pcard"
 import IconCard from "./componen/IconCard";
 import EventCategoryCard from "./componen/EventCategoryCard";
 import FeatureCard from "./componen/FeatureCard";
@@ -14,30 +16,136 @@ import CTA from "./componen/CTA";
 import JelajahiEvent from "./componen/JelajahiEvent";
 import PaymentPages from "./componen/PaymentPage";
 import PartnershipForm from "./componen/PartnershipForm";
-import EventDetailPage from "./componen/EventDetailPage";
+import { useState } from "react";
+
+
 
 import { Zap, Award, Heart, Star, Archive, Cpu, Palette, Ticket, Trophy, Headphones, Video, Music, Camera, Mic, Briefcase, QrCode, FileText, DollarSign, Users, Megaphone, } from 'lucide-react';
 import InfiniteCarousel from "./componen/InfiniteCarousel";
-import PaymentSuccess from "./componen/PaymentSuccess";
+
+
+interface EventData {
+  image: string
+  title: string
+  organizer: string
+  date: string
+  location: string
+  ticketsLeft: string
+  price: string
+}
+
+interface CheckoutData {
+  event: {
+    title: string
+    companyName: string
+    date: string
+    location: string
+    image: string
+  }
+  packages: {
+    id: number
+    name: string
+    price: number
+    quantity: number
+  }[]
+  subtotal: number
+}
+
+type Page = "home" | "detail" | "payment" | "success"
 
 export default function Home() {
+  
+    const [currentPage, setCurrentPage] = useState<Page>("home")
+  const [selectedEvent, setSelectedEvent] = useState<EventData | null>(null)
+  const [orderData, setOrderData] = useState<CheckoutData | null>(null)
+
+  // Sample event data
+  const events: EventData[] = [
+    {
+      image: "https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?w=800&h=600&fit=crop",
+      title: "Music Festival 2024",
+      organizer: "Event Organizer Pro",
+      date: "25 Desember 2024",
+      location: "Jakarta Convention Center",
+      ticketsLeft: "500 tiket tersisa",
+      price: "Rp 50.000",
+    },
+    {
+      image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=800&h=600&fit=crop",
+      title: "Tech Conference 2024",
+      organizer: "Tech Innovators",
+      date: "15 Januari 2025",
+      location: "Bali Nusa Dua",
+      ticketsLeft: "200 tiket tersisa",
+      price: "Rp 150.000",
+    },
+    {
+      image: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=800&h=600&fit=crop",
+      title: "Konsert Artis Internasional",
+      organizer: "Live Events Indonesia",
+      date: "10 Februari 2025",
+      location: "Jakarta International Expo",
+      ticketsLeft: "100 tiket tersisa",
+      price: "Rp 250.000",
+    },
+  ]
+
+  const handleCardClick = (event: EventData) => {
+    setSelectedEvent(event)
+    setCurrentPage("detail")
+  }
+
+  const handleCheckout = (data: CheckoutData) => {
+    setOrderData(data)
+    setCurrentPage("payment")
+  }
+
+  const handlePaymentSuccess = () => {
+    setCurrentPage("success")
+  }
+
+  const handleBackToHome = () => {
+    setCurrentPage("home")
+    setSelectedEvent(null)
+    setOrderData(null)
+  }
+
+  const handleBackFromDetail = () => {
+    setCurrentPage("home")
+  }
+
+  const handleBackFromPayment = () => {
+    setCurrentPage("detail")
+  }
+
+  if (currentPage === "detail" && selectedEvent) {
+    return <EventDetailPage event={selectedEvent} onBack={handleBackFromDetail} onCheckout={handleCheckout} />
+  }
+
+  if (currentPage === "payment" && orderData) {
+    return <PaymentPage orderData={orderData} onBack={handleBackFromPayment} onPaymentSuccess={handlePaymentSuccess} />
+  }
+
+  if (currentPage === "success" && orderData) {
+    return <PaymentSuccess orderData={orderData} onBackToHome={handleBackToHome} />
+  }
+
   return (
+    
     <div className="">
 
+      <div className="">
       {/*HERO*/}
       <section>
         <Hero />
       </section>
 
       {/*stats*/}
-
       <section className="bg-white py-12 px-8 md:px-100">
         <Stats1 />
       </section>
 
       {/*cards*/}
-
-
       <section className="bg-[#F6F6F6] pb-16">
         <div className="text-center mb-12 mx-auto pt-16 px-8">
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
@@ -49,76 +157,25 @@ export default function Home() {
         </div>
 
         <div className="container mx-auto p-8 pt-16 px-8">
-          <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-12">
-
-            {/* Event 1 */}
-
-
-            <Pcard
-              image="/Produc.png"
-              title="Stand Up Comedy"
-              organizer="Raditya Dika"
-              date="22 Desember 2022"
-              location="Jl. canggu,kuta utara"
-              ticketsLeft="5K+ ticket tersisa"
-              price="Rp 350.000"
-            />
-
-            {/* Event 2 */}
-            <Pcard
-              image="/Produc.png"
-              title="Konser Musik Jazz"
-              organizer="Tompi"
-              date="25 Desember 2022"
-              location="Sanur Beach Hotel"
-              ticketsLeft="2K+ ticket tersisa"
-              price="Rp 500.000"
-            />
-
-            {/* Event 3 */}
-            <Pcard
-              image="/Produc.png"
-              title="Festival Kuliner Bali"
-              organizer="Bali Food Festival"
-              date="30 Desember 2022"
-              location="Nusa Dua Convention Center"
-              ticketsLeft="10K+ ticket tersisa"
-              price="Rp 150.000"
-            />
-
-            <Pcard
-              image="/Produc.png"
-              title="Festival Kuliner Bali"
-              organizer="Bali Food Festival"
-              date="30 Desember 2022"
-              location="Nusa Dua Convention Center"
-              ticketsLeft="10K+ ticket tersisa"
-              price="Rp 150.000"
-            />
-
-
-
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {events.map((event, index) => (
+              <Pcard
+                key={index}
+                image={event.image}
+                title={event.title}
+                organizer={event.organizer}
+                date={event.date}
+                location={event.location}
+                ticketsLeft={event.ticketsLeft}
+                price={event.price}
+                onClick={() => handleCardClick(event)}
+              />
+            ))}
           </div>
         </div>
       </section>
 
-      {/*icon card*/}
-      {/* <section>
-
-        <IconCard
-          icon={Headphones}
-          size="small"
-          bgType="gradient"
-          gradientFrom="from-purple-500"
-          gradientTo="to-indigo-600"
-          hoverEffect="both"
-        />
-
-      </section> */}
-
-
       {/* Event Category Cards */}
-
       <section>
         <div className="text-center mb-12 mx-auto pt-16 px-8">
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
@@ -131,7 +188,6 @@ export default function Home() {
 
         <div className="p-8 mb-12 mx-auto px-8">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-7 gap-6">
-
             <EventCategoryCard
               icon={Music}
               title="Music"
@@ -140,7 +196,6 @@ export default function Home() {
               bgType="gradient"
               gradientFrom="from-pink-500"
               gradientTo="to-rose-500"
-
             />
 
             <EventCategoryCard
@@ -181,7 +236,6 @@ export default function Home() {
               bgType="gradient"
               gradientFrom="from-pink-500"
               gradientTo="to-rose-500"
-
             />
 
             <EventCategoryCard
@@ -203,18 +257,15 @@ export default function Home() {
               gradientFrom="from-blue-500"
               gradientTo="to-cyan-500"
             />
-
-
-
           </div>
         </div>
       </section>
-            <section >
+
+      <section>
         <InfiniteCarousel />
       </section>
 
       <section>
-
         <div className="py-16 px-8 bg-white">
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-12 mx-auto px-8">
@@ -222,13 +273,11 @@ export default function Home() {
                 Fitur <span className="text-yellow-500">Unggulan</span> Platform
               </h2>
               <p className="text-gray-600 text-base md:text-lg max-w-2xl mx-auto">
-                Rasakan cara baru beli tiket event  gampang, cepat, dan pastinya dengan fitur kece plus service terbaik!
+                Rasakan cara baru beli tiket event gampang, cepat, dan pastinya dengan fitur kece plus service terbaik!
               </p>
-
             </div>
-            {/* Grid 3 kolom */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
 
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <FeatureCard
                 icon={QrCode}
                 title="Validasi Tiket QR"
@@ -276,11 +325,13 @@ export default function Home() {
                 gradientFrom="from-orange-400"
                 gradientTo="to-orange-600"
               />
-
             </div>
           </div>
         </div>
+         <CTA />
       </section>
+    </div>
+
 
       
 

@@ -13,10 +13,10 @@ const CTA = () => {
         Bergabunglah dengan ribuan pengguna yang sudah merasakan kemudahan Eventora
       </p>
       
-      <button className="inline-flex items-center gap-3 px-8 py-4 bg-white/20 hover:bg-white/30 border-2 border-white text-white font-bold rounded-xl transition backdrop-blur-sm text-lg">
+      <a href="https://www.instagram.com/mahes.r00" className="inline-flex items-center gap-3 px-8 py-4 bg-white/20 hover:bg-white/30 border-2 border-white text-white font-bold rounded-xl transition backdrop-blur-sm text-lg">
         <MessageCircle className="w-6 h-6" />
         Live Chat Support
-      </button>
+      </a>
       </div>
     </div>
   );
